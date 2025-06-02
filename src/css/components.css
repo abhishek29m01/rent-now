@@ -229,7 +229,6 @@ input.search-input::placeholder{
 }
 
 
-
 .search-button-main{
     height: 60px;
     padding:0px 45px;
@@ -509,9 +508,9 @@ input.search-input::placeholder{
    width:100%;
    display: flex;
    flex-wrap: wrap;
-   gap:50px;
-   justify-content: center;
-   align-items: center;
+   row-gap: 50px;;
+   justify-content: space-between;
+   align-items:center;
    margin:30px auto;
 }
 
