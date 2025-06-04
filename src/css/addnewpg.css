@@ -26,13 +26,14 @@
     border-radius: 10px;
     outline: none;
     border: none;
-    background-color: rgb(255, 106, 0);
+    /* background-color: rgb(255, 106, 0); */
     /* color: white; */
 }
 
-.back-to-home a{
+.back-to-home a {
     text-decoration: none;
-    color:white;
+    color: white;
+    font-size: 25px;
 }
 
 .form-heading h2 {
@@ -121,4 +122,62 @@
     font-weight: 500;
     margin: 30px auto;
     cursor: pointer;
+}
+
+@media only screen and (max-width:800px) {
+    .add-new-pg {
+        width: 95%;
+    }
+}
+
+@media only screen and (max-width:650px) {
+
+    .inputs {
+        width: 90%;
+        margin: auto;
+    }
+
+    .pgname-n-type,
+    .owner-n-contact,
+    .rent-n-category {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+
+    .pg-name,
+    .owner-name,
+    .pg-category,
+    .pg-type,
+    .owner-contact,
+    .pg-rent {
+        width: 100%;
+    }
+
+    .city-address-pincode {
+        flex-direction: column;
+
+    }
+
+    .add-pg-button {
+        margin-left: 20px;
+    }
+
+    .back-to-home{
+        left:5px;
+    }
+}
+
+@media only screen and (max-width:450px) {
+    .add-new-pg{
+        width: 100%;
+        border-radius:0px;
+        margin:0px auto;
+    }
+
+   .add-new-pg .form-heading{
+    border-radius: 0px;
+   }
+    
+
 }

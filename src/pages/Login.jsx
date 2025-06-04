@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../css/authentication.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeftLong} from "@fortawesome/free-solid-svg-icons";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -25,7 +27,11 @@ const SignUp = () => {
     <div className="auth-page">
       <div className="auth-container">
         <div className="auth-form-heading">
-            <button className="back-to-home"><Link to='/'>Back</Link></button>
+          <div className="back-to-home">
+            <Link to="/">
+              <FontAwesomeIcon icon={faArrowLeftLong} className="f-18"></FontAwesomeIcon>
+            </Link>
+          </div>
           <h2>Sign in to Your Account</h2>
         </div>
         <form action="" onSubmit={submitForm} className="auth-form">
