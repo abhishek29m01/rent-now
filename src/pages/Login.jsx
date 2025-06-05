@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../css/authentication.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeftLong} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
   const [message, setMessage] = useState("");
 
@@ -15,12 +19,24 @@ const SignUp = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const submitForm = (event) => {
+  const submitForm = async (event) => {
     event.preventDefault();
-    console.log("Form submitted succesfully");
-    console.log(formData);
-    setMessage("Login successful.");
-    navigate("/");
+
+    try {
+      const response = await axios.post(
+        "http://localhost:2001/login",
+        formData
+      );
+      if (response.status === 200) {
+        navigate("/addnewpg");
+      }
+    } catch (err) {
+      if (err.response) {
+        setMessage(err.response.data.message);
+      } else {
+        setMessage("Network or server error.");
+      }
+    }
   };
 
   return (
@@ -29,7 +45,10 @@ const SignUp = () => {
         <div className="auth-form-heading">
           <div className="back-to-home">
             <Link to="/">
-              <FontAwesomeIcon icon={faArrowLeftLong} className="f-18"></FontAwesomeIcon>
+              <FontAwesomeIcon
+                icon={faArrowLeftLong}
+                className="f-18"
+              ></FontAwesomeIcon>
             </Link>
           </div>
           <h2>Sign in to Your Account</h2>
@@ -54,9 +73,9 @@ const SignUp = () => {
               </label>
               <input
                 type="password"
-                name="newPassword"
-                id="newpassword"
-                value={formData.newPassword}
+                name="password"
+                id="password"
+                value={formData.password}
                 onChange={handleChange}
               />
               <div className="toggle-password"></div>

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 import "../css/authentication.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeftLong} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -20,13 +21,14 @@ const SignUp = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const submitForm = (event) => {
+  const submitForm = async (event) => {
     event.preventDefault();
-    console.log("Form submitted succesfully");
-    console.log(formData);
-    setMessage("Form submitted successfully.");
-
-    setTimeout(() => {
+    try {
+      const response = await axios.post(
+        "http://localhost:2001/signup",
+        formData
+      );
+      setMessage(response.data.message);
       setFormData({
         username: "",
         contact: "",
@@ -35,9 +37,16 @@ const SignUp = () => {
         confirmPassword: "",
         userType: "",
       });
-
-      setMessage("");
-    }, 5000);
+      setTimeout(() => {
+        setMessage("");
+      }, 5000);
+    } catch (error) {
+      if (error.response && error.response.data) {
+        setMessage(error.response.data.message);
+      } else {
+        setMessage("Something went wrong.");
+      }
+    }
   };
 
   return (
@@ -46,7 +55,10 @@ const SignUp = () => {
         <div className="auth-form-heading">
           <div className="back-to-home">
             <Link to="/">
-              <FontAwesomeIcon icon={faArrowLeftLong} className="f-18"></FontAwesomeIcon>
+              <FontAwesomeIcon
+                icon={faArrowLeftLong}
+                className="f-18"
+              ></FontAwesomeIcon>
             </Link>
           </div>
           <h2>Create new Account</h2>
